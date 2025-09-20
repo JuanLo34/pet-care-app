@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Heart, Shield, Smartphone, Zap } from "lucide-react"
+import { PawPrint, Shield, Smartphone, Zap } from "lucide-react"
 import { LoadingScreen } from "@/components/loading-screen"
 
 export default function LoginPage() {
@@ -43,7 +43,7 @@ export default function LoginPage() {
         {/* Header con logo */}
         <div className="text-center mb-8 animate-float">
           <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Heart className="w-10 h-10 text-primary-foreground animate-pulse-soft" />
+            <PawPrint className="w-10 h-10 text-primary-foreground animate-pulse-soft" />
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-2">Koayaan</h1>
           <p className="text-muted-foreground text-balance">Monitorea la salud de tu mascota en tiempo real</p>
