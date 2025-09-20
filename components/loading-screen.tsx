@@ -23,7 +23,7 @@ export function LoadingScreen({ isVisible, onComplete }: LoadingScreenProps) {
         }
         return prev + Math.random() * 15
       })
-    }, 9200)
+    }, 30000)
 
     return () => clearInterval(interval)
   }, [isVisible, onComplete])
