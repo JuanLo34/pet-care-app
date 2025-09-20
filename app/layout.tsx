@@ -8,7 +8,7 @@ import { AnimatedBackground } from "@/components/animated-background"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-  title: "PetCare - Monitoreo Inteligente de Mascotas",
+  title: "Monitoreo Inteligente de Mascotas",
   description: "App móvil para monitorear la salud de tu mascota en tiempo real con collar inteligente",
   generator: "v0.app",
 }
