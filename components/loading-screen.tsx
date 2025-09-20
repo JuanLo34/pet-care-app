@@ -28,7 +28,7 @@ export function LoadingScreen({ isVisible, onComplete }: LoadingScreenProps) {
     return () => clearInterval(interval)
   }, [isVisible, onComplete])
 
-  if (!isVisible) return null
+  if (isVisible) return null
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col items-center justify-center">
