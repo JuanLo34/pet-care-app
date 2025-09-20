@@ -90,7 +90,13 @@ export default function Dashboard() {
       })
     }, 2000)
 
-    return () => clearInterval(interval)
+    return () => {clearInterval(interval)
+    setPetStats((prev) => ({
+        ...prev,
+        isActive: false
+  }))
+    }
+    
   }, [isSimulating])
 
   const getHealthStatus = () => {
