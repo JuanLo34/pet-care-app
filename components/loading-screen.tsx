@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Heart } from "lucide-react"
+import { PawPrint } from "lucide-react"
 
 interface LoadingScreenProps {
   isVisible: boolean
@@ -35,14 +35,14 @@ export function LoadingScreen({ isVisible, onComplete }: LoadingScreenProps) {
       {/* Logo animado */}
       <div className="mb-8 animate-float">
         <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center shadow-2xl">
-          <Heart className="w-12 h-12 text-primary-foreground animate-pulse-soft" />
+          <PawPrint className="w-12 h-12 text-primary-foreground animate-pulse-soft" />
         </div>
       </div>
 
       {/* Texto */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">PetCare</h1>
-        <p className="text-muted-foreground">Conectando con tu mascota...</p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Koayaan</h1>
+        <p className="text-muted-foreground">Conectado con tu mascota...</p>
       </div>
 
       {/* Barra de progreso */}
