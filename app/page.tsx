@@ -10,7 +10,7 @@ import { LoadingScreen } from "@/components/loading-screen"
 export default function LoginPage() {
   const [collarCode, setCollarCode] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
