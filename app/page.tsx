@@ -5,18 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { PawPrint, Shield, Smartphone, Zap } from "lucide-react"
+import { LoadingScreen } from "@/components/loading-screen"
 
 export default function LoginPage() {
   const [collarCode, setCollarCode] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoadingScreen(false)
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [])
 
   const handleLogin = async () => {
     if (!collarCode.trim()) return
