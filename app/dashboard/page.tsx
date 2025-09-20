@@ -117,9 +117,9 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="font-bold text-base sm:text-xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                Max
+                Koayaan
               </h1>
-              <p className="text-xs sm:text-sm text-muted-foreground">Golden Retriever • 3 años</p>
+              <p className="text-xs sm:text-sm text-muted-foreground"></p>
             </div>
           </div>
           <div className="flex items-center gap-1 sm:gap-3">
@@ -142,7 +142,7 @@ export default function Dashboard() {
               <Activity
                 className={`w-3.5 h-3.5 sm:w-5 sm:h-5 ${isSimulating ? "animate-wiggle text-green-500" : "text-muted-foreground"}`}
               />
-              Control del Simulador
+              Control de tu masctota
               {isSimulating && <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 animate-pulse" />}
             </CardTitle>
           </CardHeader>
@@ -158,12 +158,12 @@ export default function Dashboard() {
               {isSimulating ? (
                 <div className="flex items-center gap-1.5">
                   <Pause className="w-3 h-3 sm:w-5 sm:h-5 animate-pulse" />
-                  Detener Simulación
+                  Detener+
                 </div>
               ) : (
                 <div className="flex items-center gap-1.5">
                   <Play className="w-3 h-3 sm:w-5 sm:h-5" />
-                  Iniciar Simulación
+                  Iniciar+
                 </div>
               )}
             </Button>

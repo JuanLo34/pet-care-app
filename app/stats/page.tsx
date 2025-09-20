@@ -178,7 +178,7 @@ export default function StatsPage() {
             </Button>
             <div>
               <h1 className="font-bold text-base sm:text-lg">Estadísticas Avanzadas</h1>
-              <p className="text-xs text-muted-foreground">Análisis en tiempo real de Max</p>
+              <p className="text-xs text-muted-foreground">Análisis en tiempo real de tu mascota</p>
             </div>
           </div>
           <div className="flex items-center gap-1 sm:gap-2">

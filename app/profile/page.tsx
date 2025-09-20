@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -35,33 +35,59 @@ interface PetProfile {
   photo: string
 }
 
+const defaultProfile: PetProfile = {
+  name: "Max",
+  breed: "Golden Retriever",
+  age: "3",
+  weight: "28.5",
+  height: "58",
+  gender: "Macho",
+  color: "Dorado",
+  microchip: "982000123456789",
+  birthDate: "2021-03-15",
+  notes: "Muy juguetón y amigable. Le encanta nadar y jugar con pelotas.",
+  ownerName: "María González",
+  ownerPhone: "+34 612 345 678",
+  ownerEmail: "maria.gonzalez@email.com",
+  emergencyContact: "+34 698 765 432",
+  veterinarian: "Dr. Carlos Ruiz - Clínica Veterinaria Central",
+  vetPhone: "+34 915 123 456",
+  allergies: "Ninguna conocida",
+  medications: "Ninguna actualmente",
+  photo: "/golden-retriever.png",
+}
+
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
+  const [profile, setProfile] = useState<PetProfile>(defaultProfile)
+  const [originalProfile, setOriginalProfile] = useState<PetProfile>(defaultProfile)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const [profile, setProfile] = useState<PetProfile>({
-    name: "Max",
-    breed: "Golden Retriever",
-    age: "3",
-    weight: "28.5",
-    height: "58",
-    gender: "Macho",
-    color: "Dorado",
-    microchip: "982000123456789",
-    birthDate: "2021-03-15",
-    notes: "Muy juguetón y amigable. Le encanta nadar y jugar con pelotas.",
-    ownerName: "María González",
-    ownerPhone: "+34 612 345 678",
-    ownerEmail: "maria.gonzalez@email.com",
-    emergencyContact: "+34 698 765 432",
-    veterinarian: "Dr. Carlos Ruiz - Clínica Veterinaria Central",
-    vetPhone: "+34 915 123 456",
-    allergies: "Ninguna conocida",
-    medications: "Ninguna actualmente",
-    photo: "/golden-retriever.png",
-  })
+  // Cargar datos persistentes al montar el componente
+  useEffect(() => {
+    const savedProfile = sessionStorage.getItem('petProfile')
+    if (savedProfile) {
+      try {
+        const parsedProfile = JSON.parse(savedProfile)
+        setProfile(parsedProfile)
+        setOriginalProfile(parsedProfile)
+      } catch (error) {
+        console.error('Error al cargar el perfil guardado:', error)
+        // Si hay error, usar el perfil por defecto
+        setProfile(defaultProfile)
+        setOriginalProfile(defaultProfile)
+      }
+    }
+  }, [])
+
+  // Guardar datos cuando el perfil cambie (excepto durante la edición)
+  useEffect(() => {
+    if (!isEditing) {
+      sessionStorage.setItem('petProfile', JSON.stringify(profile))
+    }
+  }, [profile, isEditing])
 
   const handleSave = async () => {
     setIsSaving(true)
@@ -69,8 +95,16 @@ export default function ProfilePage() {
     setTimeout(() => {
       setIsSaving(false)
       setIsEditing(false)
-      // Aquí se guardaría en la base de datos
+      setOriginalProfile(profile) // Actualizar el perfil original
+      // Guardar en sessionStorage
+      sessionStorage.setItem('petProfile', JSON.stringify(profile))
     }, 1500)
+  }
+
+  const handleCancel = () => {
+    // Restaurar a los valores originales si se cancela
+    setProfile(originalProfile)
+    setIsEditing(false)
   }
 
   const handleInputChange = (field: keyof PetProfile, value: string) => {
@@ -84,14 +118,12 @@ export default function ProfilePage() {
 
       // Validar que sea una imagen
       if (!file.type.startsWith("image/")) {
-        alert("Por favor selecciona un archivo de imagen válido")
         setIsUploadingPhoto(false)
         return
       }
 
-      // Validar tamaño (máximo 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert("La imagen es demasiado grande. Máximo 5MB.")
+      // Validar tamaño (máximo 2MB para mejor performance)
+      if (file.size > 2 * 1024 * 1024) {
         setIsUploadingPhoto(false)
         return
       }
@@ -101,6 +133,10 @@ export default function ProfilePage() {
         const result = e.target?.result as string
         setProfile((prev) => ({ ...prev, photo: result }))
         setIsUploadingPhoto(false)
+        // Limpiar el input para permitir seleccionar la misma imagen nuevamente
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -108,6 +144,10 @@ export default function ProfilePage() {
 
   const triggerPhotoUpload = () => {
     fileInputRef.current?.click()
+  }
+
+  const hasChanges = () => {
+    return JSON.stringify(profile) !== JSON.stringify(originalProfile)
   }
 
   return (
@@ -128,23 +168,47 @@ export default function ProfilePage() {
               <p className="text-xs text-muted-foreground">Información completa de {profile.name}</p>
             </div>
           </div>
-          <Button
-            variant={isEditing ? "default" : "outline"}
-            size="sm"
-            onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-            disabled={isSaving}
-            className="gap-1 hover:scale-105 transition-transform duration-200 text-xs px-2 py-1.5"
-          >
-            {isSaving ? (
-              <div className="w-3 h-3 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-            ) : isEditing ? (
-              <Save className="w-3 h-3" />
-            ) : (
-              <Edit3 className="w-3 h-3" />
+          
+          <div className="flex gap-2">
+            {isEditing && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCancel}
+                className="gap-1 hover:scale-105 transition-transform duration-200 text-xs px-2 py-1.5"
+              >
+                Cancelar
+              </Button>
             )}
-            {isSaving ? "Guardando..." : isEditing ? "Guardar" : "Editar"}
-          </Button>
+            
+            <Button
+              variant={isEditing ? "default" : "outline"}
+              size="sm"
+              onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+              disabled={isSaving || (isEditing && !hasChanges())}
+              className="gap-1 hover:scale-105 transition-transform duration-200 text-xs px-2 py-1.5"
+            >
+              {isSaving ? (
+                <div className="w-3 h-3 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+              ) : isEditing ? (
+                <Save className="w-3 h-3" />
+              ) : (
+                <Edit3 className="w-3 h-3" />
+              )}
+              {isSaving ? "Guardando..." : isEditing ? "Guardar" : "Editar"}
+            </Button>
+          </div>
         </div>
+        
+        {isEditing && hasChanges() && (
+          <div className="px-2 sm:px-4 pb-2">
+            <div className="bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-2">
+              <p className="text-xs text-yellow-700 dark:text-yellow-300">
+                Tienes cambios sin guardar. Recuerda hacer clic en "Guardar" para mantener tus cambios.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="p-2 sm:p-4 space-y-3 sm:space-y-6">
@@ -164,6 +228,7 @@ export default function ProfilePage() {
                   onClick={triggerPhotoUpload}
                   disabled={isUploadingPhoto}
                   className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-10 sm:h-10 rounded-full p-0 bg-primary hover:bg-primary/90 shadow-lg hover:scale-110 transition-all duration-200"
+                  title="Cambiar foto"
                 >
                   {isUploadingPhoto ? (
                     <div className="w-2.5 h-2.5 sm:w-4 sm:h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />

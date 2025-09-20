@@ -29,7 +29,7 @@ interface CartItem extends Product {
 const products: Product[] = [
   {
     id: "1",
-    name: "Collar Inteligente PetCare Pro",
+    name: "Collar Inteligente Koayaan Pro",
     price: 149.99,
     originalPrice: 199.99,
     image: "/smart-collar-for-dogs.jpg",
@@ -164,7 +164,7 @@ export default function ShopPage() {
               <ArrowLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
             </Button>
             <div>
-              <h1 className="font-bold text-sm sm:text-lg">Tienda PetCare</h1>
+              <h1 className="font-bold text-sm sm:text-lg">Tienda Koayaan</h1>
               <p className="text-xs text-muted-foreground hidden sm:block">Todo para tu mascota</p>
             </div>
           </div>

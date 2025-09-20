@@ -45,7 +45,7 @@ export default function LoginPage() {
           <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Heart className="w-10 h-10 text-primary-foreground animate-pulse-soft" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">PetCare</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Koayaan</h1>
           <p className="text-muted-foreground text-balance">Monitorea la salud de tu mascota en tiempo real</p>
         </div>
 
@@ -54,7 +54,7 @@ export default function LoginPage() {
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-xl text-card-foreground">Conecta tu Collar Inteligente</CardTitle>
             <CardDescription className="text-pretty">
-              Ingresa el código único de tu collar PetCare para acceder al dashboard de tu mascota
+              Ingresa el código único de tu collar Koayaan para acceder al dashboard de tu mascota
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -114,7 +114,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-muted-foreground mb-2">¿No tienes un collar PetCare?</p>
+          <p className="text-xs text-muted-foreground mb-2">¿No tienes un collar Koayaan?</p>
           <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
             <Smartphone className="w-4 h-4 mr-2" />
             Comprar Collar
