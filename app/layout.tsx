@@ -4,7 +4,6 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { FloatingActionButton } from "@/components/floating-action-button"
 import { AnimatedBackground } from "@/components/animated-background"
 import { Suspense } from "react"
 
@@ -25,7 +24,6 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <AnimatedBackground />
           {children}
-          <FloatingActionButton />
         </Suspense>
         <Analytics />
       </body>
