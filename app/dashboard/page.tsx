@@ -66,7 +66,7 @@ export default function Dashboard() {
           hunger: Math.max(0, Math.min(100, prev.hunger + Math.random() * 2)),
           thirst: Math.max(0, Math.min(100, prev.thirst + Math.random() * 1.5)),
           foodLevel: Math.max(0, Math.min(100, prev.foodLevel - Math.random() * 0.5)),
-          isActive: Math.random() > 0.7,
+          isActive: true,
           activityLevel: Math.max(0, Math.min(100, prev.activityLevel + (Math.random() - 0.5) * 10)),
           stressLevel: Math.max(0, Math.min(100, prev.stressLevel + (Math.random() - 0.5) * 5)),
           hydrationLevel: Math.max(0, Math.min(100, prev.hydrationLevel + (Math.random() - 0.5) * 3)),
@@ -277,7 +277,7 @@ export default function Dashboard() {
                     <Moon className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-blue-500 animate-pulse-gentle" />
                   )}
                   <span className="font-semibold text-sm sm:text-lg">
-                    {petStats.isActive ? "Activo y Jugando" : "Descansando"}
+                    {petStats.isActive ? "Collar activado" : "Collar desactivado"}
                   </span>
                 </div>
               </div>
@@ -287,11 +287,7 @@ export default function Dashboard() {
                 }`}
               />
             </div>
-            {petStats.isActive && (
-              <div className="mt-2 text-xs sm:text-sm text-muted-foreground animate-slide-in-up">
-                <p>Max está muy activo y necesita atención 🐕</p>
-              </div>
-            )}
+            
           </CardContent>
         </Card>
 
