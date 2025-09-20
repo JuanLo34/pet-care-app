@@ -9,7 +9,7 @@ import { PawPrint, Shield, Smartphone, Zap } from "lucide-react"
 export default function LoginPage() {
   const [collarCode, setCollarCode] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(false)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
 
   useEffect(() => {
     const timer = setTimeout(() => {
